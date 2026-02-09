@@ -113,9 +113,15 @@ function executeJumpscare() {
             fullscreenOverlay.removeChild(jumpscareGif);
             fullscreenOverlay.appendChild(fullscreenStatic);
 
-            setTimeout(() => {
-                fullscreenOverlay.remove();
-            }, 3000);
+setTimeout(() => {
+    fullscreenOverlay.remove();
+
+    // RESET STATE so it can happen again
+    jumpscare = false;
+    jumpscareQueued = false;
+
+    console.log("[FNAF] Freddy has left... for now.");
+}, 3000);
         }, 1500);
     });
 }
