@@ -11,10 +11,11 @@ function randomCheckDelay() {
     return Math.floor(Math.random() * 5000);
 }
 
-async function isTabFocused(callback) {
-    // Send a message to the background script to check if the tab is focused
-    await chrome.runtime.sendMessage({ action: "checkFocus" }, (response) => {
-        callback(response.isFocused);
+function isTabFocused() {x
+    return new Promise((resolve) => {
+        chrome.runtime.sendMessage({ action: "checkFocus" }, (response) => {
+            resolve(response?.isFocused ?? false);
+        });
     });
 }
 
