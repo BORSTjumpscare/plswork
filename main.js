@@ -51,30 +51,27 @@ async function overlayJumpscare() {
         let delay = randomCheckDelay();
         console.log(`[FNAF] Jumpscare queued. Waiting for next opportunity!`);
         await new Promise((r) => setTimeout(r, delay));
-        await isTabFocused((tabFocused) => {
-            if (!tabFocused) {
-                console.log("[FNAF] Freddy is waiting for user to focus tab/window.");
-            } else if (!hasInteracted) {
-                console.log(
-                    "[FNAF] Freddy is waiting for the next user interaction."
-                );
-            } else {
-                if (!jumpscare) {
-                    console.log("[FNAF] Opportunity found.");
-                    jumpscare = true;
-                    if (Math.random() < 0.5) {
-                        console.log("[FNAF] Freddy backed out and left this tab alone!");
-                    } else {
-                        console.log("[FNAF] Freddy is preparing to jumpscare!");
-                        executeJumpscare();
-                    }
-                } else {
-                    console.log(
-                        "[FNAF] Freddy is deciding!"
-                    );
-                }
-            }
-        });
+const tabFocused = await isTabFocused();
+
+if (!tabFocused) {
+    console.log("[FNAF] Freddy is waiting for user to focus tab/window.");
+} else if (!hasInteracted) {
+    console.log("[FNAF] Freddy is waiting for the next user interaction.");
+} else {
+    if (!jumpscare) {
+        console.log("[FNAF] Opportunity found.");
+        jumpscare = true;
+
+        if (Math.random() < 0.5) {
+            console.log("[FNAF] Freddy backed out and left this tab alone!");
+        } else {
+            console.log("[FNAF] Freddy is preparing to jumpscare!");
+            executeJumpscare();
+        }
+    } else {
+        console.log("[FNAF] Freddy is deciding!");
+    }
+}
     }
 }
 
